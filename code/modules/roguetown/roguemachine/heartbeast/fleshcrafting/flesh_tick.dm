@@ -64,7 +64,15 @@
 		return FALSE
 
 	var/obj/item/bodypart/chest/target_chest = target.get_bodypart(BODY_ZONE_CHEST)
-	if(target_chest.skeletonized)
+
+	//Simplemobs won't have a chest to read
+	if(target_chest == null)
+		target.visible_message(
+			span_warning("[src] is uninterested in this creature."),
+			span_notice("[src] refuses to attach to your simple form.")
+		)
+		return FALSE
+	else if(target_chest.skeletonized)
 		target.visible_message(
 			span_warning("[src] refuses to latch onto a skeleton!"),
 			span_notice("[src] refuses to attach to you, on account of being boney.")
